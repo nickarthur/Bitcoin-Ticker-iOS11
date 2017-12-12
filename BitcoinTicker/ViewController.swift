@@ -1,3 +1,4 @@
+
 //
 //  ViewController.swift
 //  BitcoinTicker
@@ -9,18 +10,25 @@
 import UIKit
 
 class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+   
     
+    //MARK: ATTRIBUTED STRING STYLING
+    //BEGIN LEN DEBUG
+    // Create the attributed string
+    var myString = NSMutableAttributedString(string:"AUD")
     
+    //MARK: PROPERTIES
     let baseURL = "https://apiv2.bitcoinaverage.com/indices/global/ticker/BTC"
     let currencyArray = ["AUD", "BRL","CAD","CNY","EUR","GBP","HKD","IDR","ILS","INR","JPY","MXN","NOK","NZD","PLN","RON","RUB","SEK","SGD","USD","ZAR"]
     var finalURL = ""
 
+    //MARK: OUTLETS
     //Pre-setup IBOutlets
     @IBOutlet weak var bitcoinPriceLabel: UILabel!
     @IBOutlet weak var currencyPicker: UIPickerView!
     
 
-    
+    //MARK: Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,6 +60,30 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         print(finalURL)
     }
     
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        
+        let myString = NSMutableAttributedString(string: currencyArray[row])
+        
+        // Declare the fonts
+        let myStringFont1 = UIFont(name:"Helvetica-Light", size:30.0)!
+        
+        // Declare the colors
+        let myStringColor1 = UIColor(red: 0.985538, green: 0.009297, blue: 0.999171, alpha: 1.000000)
+        
+        // Declare the paragraph styles
+        let myStringParaStyle1: NSMutableParagraphStyle = NSMutableParagraphStyle()
+        
+        myStringParaStyle1.alignment = NSTextAlignment.center
+        myStringParaStyle1.tabStops = [NSTextTab(textAlignment: NSTextAlignment.left, location: 28.000000, options: [:]), NSTextTab(textAlignment: NSTextAlignment.left, location: 56.000000, options: [:]), NSTextTab(textAlignment: NSTextAlignment.left, location: 84.000000, options: [:]), NSTextTab(textAlignment: NSTextAlignment.left, location: 112.000000, options: [:]), NSTextTab(textAlignment: NSTextAlignment.left, location: 140.000000, options: [:]), NSTextTab(textAlignment: NSTextAlignment.left, location: 168.000000, options: [:]), NSTextTab(textAlignment: NSTextAlignment.left, location: 196.000000, options: [:]), NSTextTab(textAlignment: NSTextAlignment.left, location: 224.000000, options: [:]), NSTextTab(textAlignment: NSTextAlignment.left, location: 252.000000, options: [:]), NSTextTab(textAlignment: NSTextAlignment.left, location: 280.000000, options: [:]), NSTextTab(textAlignment: NSTextAlignment.left, location: 308.000000, options: [:]), NSTextTab(textAlignment: NSTextAlignment.left, location: 336.000000, options: [:]), ]
+        
+        
+        // Create the attributes and add them to the string
+        myString.addAttribute(NSAttributedStringKey.foregroundColor, value:myStringColor1, range:NSMakeRange(0,3))
+        myString.addAttribute(NSAttributedStringKey.paragraphStyle, value:myStringParaStyle1, range:NSMakeRange(0,3))
+        myString.addAttribute(NSAttributedStringKey.font, value:myStringFont1, range:NSMakeRange(0,3))
+
+            return myString
+    }
     
 //    
 //    //MARK: - Networking
